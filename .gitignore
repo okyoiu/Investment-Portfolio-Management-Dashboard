@@ -1,0 +1,5 @@
+# .gitignore file
+.venv/
+# other common ignores
+__pycache__/
+*.pyc
