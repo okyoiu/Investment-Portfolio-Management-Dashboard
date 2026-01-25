@@ -7,6 +7,7 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
+// import { useAuth0 } from "@auth0/auth0-react";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -34,7 +35,7 @@ export default function Login() {
                 mb-4
               `}
             >
-              Continue to Dashboard
+              {/* {req.oidc.isAuthenticated() ?*/ 'Continue to Dashboard'/* : 'Log in'} */}
             </button>
 
             <div className="mt-6 text-center">
@@ -56,3 +57,18 @@ export default function Login() {
     </div>
   );
 }
+
+
+              // const LoginButton = () => {
+              //   const { loginWithRedirect } = useAuth0();
+              //   return (
+              //     <button 
+              //       onClick={() => loginWithRedirect()} 
+              //       className="button login"
+              //     >
+              //       Log In
+              //     </button>
+              //   );
+              // };
+
+              // export default LoginButton;    
