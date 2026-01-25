@@ -13,6 +13,7 @@ import os
 from dotenv import load_dotenv, find_dotenv
 from pathlib import Path
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATE_DIR = os.path.join(BASE_DIR, "capitalPlusPlus", "templates")
@@ -39,8 +40,29 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
     'authentication'
 ]
+
+REST_FRAMEWORK={
+    'DEFAULT_PERMISSION_CLASSES':(
+        'rest_framework.permissions.IsAuthenticated'
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES':(
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication'
+    )
+}
+
+JWT_AUTH={
+    'JWT_PAYLOAD_GET_USERNAME_HANDLER':'authorization.utils.username_from_jwt_payload',
+    'JWT_DECODE_HANDLER':'authorization.utils.jwt_decode_token',
+    'JWT_ALGORITHM':'RS256',
+    'JWT_AUDIENCE':'fundmental.tech/api',
+    'JWT_ISSUER':'http://dev-tlb3te2uklw5p303.us.auth0.com',
+    'JWT_AUTH_HEADER_PREFIX':'bearer'
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -50,6 +72,12 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.contrib.auth.middleware.RemoteUserMiddleware',
+]
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'django.contrib.auth.backends.RemoteUserBackend',
 ]
 
 ROOT_URLCONF = 'capitalPlusPlus.urls'
