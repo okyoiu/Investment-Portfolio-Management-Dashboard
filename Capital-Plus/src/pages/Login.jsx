@@ -1,26 +1,40 @@
 // ============================================
 // LOGIN PAGE COMPONENT
 // ============================================
-// Simple login page - redirects to dashboard
+// Login page with Auth0 authentication
+// Redirects to backend Auth0 login endpoint (matching Python implementation)
 // ============================================
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
-import { useAuth0 } from "@auth0/auth0-react";
+
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api';
 
 export default function Login() {
-  // const navigate = useAuth0();
+  const navigate = useNavigate();
+
+  // Check if user is already authenticated
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const response = await fetch(`${API_URL}/auth/user`, {
+          credentials: 'include'
+        });
+        const data = await response.json();
+        if (data.authenticated) {
+          navigate('/dashboard');
+        }
+      } catch (error) {
+        console.error('Auth check failed:', error);
+      }
+    };
+    checkAuth();
+  }, [navigate]);
 
   const handleLogin = () => {
-    return (
-      <button 
-        onClick={() => useAuth0()} 
-        className="button login"
-      >
-        Log In
-      </button>
-    );
+    // Redirect to backend Auth0 login endpoint (matching Python implementation)
+    window.location.href = `${API_URL}/auth/login`;
   };
 
   return (
@@ -41,7 +55,7 @@ export default function Login() {
                 mb-4
               `}
             >
-              {/* {req.oidc.isAuthenticated() ?*/ 'Continue to Dashboard'/* : 'Log in'} */}
+              Log In with Auth0
             </button>
 
             <div className="mt-6 text-center">
@@ -62,6 +76,4 @@ export default function Login() {
       </div>
     </div>
   );
-}
-
-
+}    
