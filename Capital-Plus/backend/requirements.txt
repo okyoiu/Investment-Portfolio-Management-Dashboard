@@ -1,0 +1,17 @@
+# Django and core dependencies
+Django>=4.2.0
+djangorestframework>=3.14.0
+django-cors-headers>=4.0.0
+
+# Auth0 integration (matching capitalPlusPlus)
+authlib>=1.0.0
+python-dotenv>=1.0.0
+
+# JWT support
+PyJWT>=2.8.0
+
+# Database (SQLite by default, can switch to PostgreSQL)
+# psycopg2-binary>=2.9.0  # Uncomment for PostgreSQL
+
+# Utilities
+requests>=2.31.0

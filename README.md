@@ -1,6 +1,6 @@
 # TAMUHack2026
 
-Welcome to the **TAMUHack2026** project! This repository contains the source code for our hackathon project, built using **React**, **Vite**, and **Tailwind CSS**.
+Welcome to the **TAMUHack2026** project! This repository contains the source code for our hackathon project, built using **React**, **Vite**, **Tailwind CSS**, and **Django**.
 
 ## Table of Contents
 - [TAMUHack2026](#tamuhack2026)
@@ -36,4 +36,16 @@ Make sure you have the following installed on your system:
 1. Clone the repository:
    ```bash
    git clone https://github.com/your-username/TAMUHack2026.git
+2. Set up virtual env
+3. Enter venv using
+.venv\Scripts\activate.bat for windows
+
+### Running Code
+Using `Node.js`. run the following:
+
+```zsh
+npm install
+npm run dev
 ```
+
+This should open up the file on a Vite server which is then displayed onto a local server on your webbrowser.
