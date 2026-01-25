@@ -1,0 +1,4 @@
+Backend:
+BEFORE PUSHING TO PROD
+Set Debug to False in settings file
+REMOVE PRODUCTION KEY FROM SETTINGS

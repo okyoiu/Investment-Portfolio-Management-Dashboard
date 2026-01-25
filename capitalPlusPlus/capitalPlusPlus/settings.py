@@ -21,7 +21,8 @@ TEMPLATE_DIR = os.path.join(BASE_DIR, "capitalPlusPlus", "templates")
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-#dmkr^m8t8*ic-!fpk5la-!v#mf+k&pc9j1icb2kc6rs6yt21%'
+SECRET_KEY=os.environ.get('DJANGO_SECRET_KEY', 'default-unsafe-key-for-dev')
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -38,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'authentication'
 ]
 
 MIDDLEWARE = [
