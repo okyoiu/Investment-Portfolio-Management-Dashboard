@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budget Planner</title>
+    <!-- This line links to your CSS file -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Budget Planner</h1>
+            <p>Take control of your finances and discover savings opportunities</p>
+        </header>
+
+        <div class="income-section">
+            <label for="income">Monthly Income</label>
+            <input type="number" id="income" placeholder="Enter your monthly income">
+        </div>
+
+        <div class="add-expense-section">
+            <h2>Add Expense</h2>
+            <div class="expense-form">
+                <input type="text" id="expenseName" placeholder="Expense name">
+                <select id="category">
+                    <option value="">Select category</option>
+                    <option value="Housing">Housing</option>
+                    <option value="Transportation">Transportation</option>
+                    <option value="Food & Dining">Food & Dining</option>
+                    <option value="Utilities">Utilities</option>
+                    <option value="Entertainment">Entertainment</option>
+                    <option value="Shopping">Shopping</option>
+                    <option value="Healthcare">Healthcare</option>
+                    <option value="Insurance">Insurance</option>
+                    <option value="Savings">Savings</option>
+                    <option value="Other">Other</option>
+                </select>
+                <input type="number" id="amount" placeholder="Amount">
+                <button id="addBtn">Add Expense</button>
+            </div>
+        </div>
+
+        <div class="summary-cards">
+            <div class="card">
+                <div class="card-label">Monthly Income</div>
+                <div class="card-value" id="totalIncome">$0.00</div>
+            </div>
+            <div class="card">
+                <div class="card-label">Total Expenses</div>
+                <div class="card-value expense" id="totalExpenses">$0.00</div>
+            </div>
+            <div class="card">
+                <div class="card-label">Remaining</div>
+                <div class="card-value" id="remaining">$0.00</div>
+            </div>
+        </div>
+
+        <div id="expensesList" class="expenses-list" style="display: none;">
+            <h2>Your Expenses</h2>
+            <table id="expensesTable">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Category</th>
+                        <th>Amount</th>
+                        <th>% of Income</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="expensesBody"></tbody>
+            </table>
+        </div>
+
+        <div id="suggestions" class="suggestions" style="display: none;"></div>
+        <div id="categoryBreakdown" class="category-breakdown" style="display: none;"></div>
+    </div>
+
+    <!-- This line links to your JavaScript file -->
+    <script src="script.js"></script>
+</body>
+</html>
