@@ -85,13 +85,7 @@ export default function Dashboard() {
             
             {/* Badge showing benefits */}
             <div className="flex items-center gap-2 text-sm">
-              <div className={`
-                w-5 h-5 
-                bg-lime-400 rounded-full 
-                flex items-center justify-center 
-                shadow-lg shadow-lime-400/30 
-                animate-pulse
-              `}>
+              <div className="w-5 h-5 bg-lime-400 rounded-full flex items-center justify-center shadow-lg shadow-lime-400/30 animate-pulse">
                 <span className="text-gray-900 text-xs font-bold">✓</span>
               </div>
               <span className="text-gray-300 font-medium">No LLC Required, No Credit Check.</span>
@@ -103,11 +97,7 @@ export default function Dashboard() {
                 Welcome to YourBank<br />
                 Empowering Your <span className="text-lime-400 text-gradient">Financial<br />Journey</span>
               </h1>
-              <p className={`
-                text-gray-400 
-                leading-relaxed max-w-lg 
-                text-base sm:text-lg
-              `}>
+              <p className="text-gray-400 leading-relaxed max-w-lg text-base sm:text-lg">
                 At YourBank, our mission is to provide comprehensive banking solutions that empower 
                 individuals and businesses to achieve their financial goals. We are committed to delivering 
                 personalized and innovative services that prioritize our customers' needs.
