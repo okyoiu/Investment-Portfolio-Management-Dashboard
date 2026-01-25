@@ -100,10 +100,26 @@ def callback(request):
             callback_url = stored_callback
         
         # Check if Client Secret is set
-        if not settings.AUTH0_CLIENT_SECRET or settings.AUTH0_CLIENT_SECRET == 'YOUR_AUTH0_CLIENT_SECRET_HERE':
-            print("❌ AUTH0_CLIENT_SECRET is not set in .env file!")
-            print("   Please add your Auth0 Client Secret to backend/.env")
-            raise ValueError("AUTH0_CLIENT_SECRET is missing. Get it from Auth0 Dashboard → Applications → Your App → Settings")
+        client_secret = settings.AUTH0_CLIENT_SECRET
+        if (not client_secret or 
+            client_secret == 'YOUR_AUTH0_CLIENT_SECRET_HERE' or
+            client_secret == 'your-auth0-client-secret-here' or
+            len(client_secret) < 20):  # Real secrets are much longer
+            print("=" * 60)
+            print("❌ AUTH0_CLIENT_SECRET ERROR!")
+            print("=" * 60)
+            print(f"   Current value: {client_secret}")
+            print("   This is a PLACEHOLDER, not your actual secret!")
+            print("")
+            print("   TO FIX:")
+            print("   1. Go to: https://manage.auth0.com/")
+            print("   2. Applications → Your App → Settings")
+            print("   3. Copy 'Client Secret'")
+            print("   4. Edit backend/.env file")
+            print("   5. Replace 'your-auth0-client-secret-here' with your actual secret")
+            print("   6. Restart Django server")
+            print("=" * 60)
+            raise ValueError("AUTH0_CLIENT_SECRET is missing. See error message above for instructions.")
         
         import requests
         token_response = requests.post(
@@ -123,12 +139,29 @@ def callback(request):
         print(f"   Client ID: {settings.AUTH0_CLIENT_ID[:10]}...")
         print(f"   Redirect URI: {callback_url}")
         print(f"   Response Status: {token_response.status_code}")
-        if not token_response.ok:
-            print(f"   Response Body: {token_response.text}")
         
         if not token_response.ok:
-            print(f"❌ Token exchange failed: {token_response.status_code} - {token_response.text}")
-            raise ValueError(f"Token exchange failed: {token_response.text}")
+            print("=" * 60)
+            print(f"❌ TOKEN EXCHANGE FAILED: {token_response.status_code}")
+            print("=" * 60)
+            print(f"   Response: {token_response.text}")
+            print("")
+            error_data = token_response.json() if token_response.text else {}
+            error_desc = error_data.get('error_description', 'Unknown error')
+            
+            if 'Unauthorized' in error_desc or 'access_denied' in error_desc:
+                print("   LIKELY CAUSE: AUTH0_CLIENT_SECRET is incorrect or missing")
+                print("")
+                print("   CHECK YOUR .env FILE:")
+                print("   - Open: backend/.env")
+                print("   - Find: AUTH0_CLIENT_SECRET")
+                print("   - Make sure it's your ACTUAL secret from Auth0 Dashboard")
+                print("   - NOT: 'your-auth0-client-secret-here'")
+                print("")
+                print("   Get it from:")
+                print("   https://manage.auth0.com/ → Applications → Your App → Settings")
+            print("=" * 60)
+            raise ValueError(f"Token exchange failed: {error_desc}")
         
         token_data = token_response.json()
         

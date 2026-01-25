@@ -10,11 +10,18 @@ Python/Django backend for Capital Plus with Auth0 authentication.
 - ✅ CORS enabled for React frontend
 - ✅ Session-based authentication
 
-## Setup
+## Quick Start
+
+```bash
+cd backend
+python3 manage.py runserver 0.0.0.0:3000
+```
+
+## First Time Setup
 
 1. **Create virtual environment:**
    ```bash
-   python -m venv venv
+   python3 -m venv venv
    source venv/bin/activate  # On Windows: venv\Scripts\activate
    ```
 
@@ -31,19 +38,29 @@ Python/Django backend for Capital Plus with Auth0 authentication.
 
 4. **Run migrations:**
    ```bash
-   python manage.py makemigrations
-   python manage.py migrate
+   python3 manage.py makemigrations
+   python3 manage.py migrate
    ```
 
 5. **Create superuser (optional):**
    ```bash
-   python manage.py createsuperuser
+   python3 manage.py createsuperuser
    ```
 
 6. **Run development server:**
    ```bash
-   python manage.py runserver 0.0.0.0:3000
+   python3 manage.py runserver 0.0.0.0:3000
    ```
+
+## Daily Use (After Setup)
+
+```bash
+cd backend
+source venv/bin/activate  # Activate virtual environment
+python3 manage.py runserver 0.0.0.0:3000
+```
+
+**Note:** Use `python3` (not `python`) on macOS!
 
 ## API Endpoints
 
