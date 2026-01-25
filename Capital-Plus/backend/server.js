@@ -116,7 +116,7 @@ app.use((err, req, res, next) => {
 const config = {
   authRequired: true,
   auth0Logout: true,
-  baseURL: 'http://localhost:3000',
+  baseURL: 'http://localhost:5173',
   clientID: 'z64XMFb4ZA0At5kdHT2je0bR8p76Pdch',
   issuerBaseURL: 'dev-qf6vehdgcboq5pd2.us.auth0.com',
   secret: 'LONG_RANDOM_STRING'
@@ -124,19 +124,44 @@ const config = {
 
 // The `auth` router attaches /login, /logout
 // and /callback routes to the baseURL
-app.use(auth(config));
+app.use(
+  auth({
+    routes: {
+      // Override the default login route to use your own login route as shown below
+      login: false,
+      // Pass a custom path to redirect users to a different
+      // path after logout.
+      postLogoutRedirect: '/home',
+      // Override the default callback route to use your own callback route as shown below
+      callback: false,
+    },
+  })
+);
 
-// req.oidc.isAuthenticated is provided from the auth router
-app.get('/', (req, res) => {
-  res.send(
-    req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out'
-  )
-});
+app.get('/login', (req, res) =>
+  res.oidc.login({
+    returnTo: '/dashboard',
+    authorizationParams: {
+      redirect_uri: 'http://localhost:5173/callback',
+    },
+  })
+);
 
+app.get('/logout', (req, res) => res.send('Bye!'));
 
-app.get('/dashboard', requiresAuth(), (req, res) => {
-  res.send(JSON.stringify(req.oidc.user, null, 2));
-});
+app.get('/callback', (req, res) =>
+  res.oidc.callback({
+    redirectUri: 'http://localhost:5173/callback',
+  })
+);
+
+app.post('/callback', express.urlencoded({ extended: false }), (req, res) =>
+  res.oidc.callback({
+    redirectUri: 'http://localhost:5173/callback',
+  })
+);
+
+module.exports = app;
 
 app.listen(3000, function() {
   console.log('Listening on http://localhost:3000');

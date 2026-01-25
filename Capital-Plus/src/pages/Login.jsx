@@ -7,14 +7,20 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
-// import { useAuth0 } from "@auth0/auth0-react";
+import { useAuth0 } from "@auth0/auth0-react";
 
 export default function Login() {
-  const navigate = useNavigate();
+  // const navigate = useAuth0();
 
   const handleLogin = () => {
-    // Simple login - just redirect to dashboard
-    navigate('/dashboard');
+    return (
+      <button 
+        onClick={() => useAuth0()} 
+        className="button login"
+      >
+        Log In
+      </button>
+    );
   };
 
   return (
@@ -59,16 +65,3 @@ export default function Login() {
 }
 
 
-              // const LoginButton = () => {
-              //   const { loginWithRedirect } = useAuth0();
-              //   return (
-              //     <button 
-              //       onClick={() => loginWithRedirect()} 
-              //       className="button login"
-              //     >
-              //       Log In
-              //     </button>
-              //   );
-              // };
-
-              // export default LoginButton;    

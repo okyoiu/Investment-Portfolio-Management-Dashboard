@@ -45,7 +45,6 @@ INSTALLED_APPS = [
     'authentication',
     'authorization',
     'corsheaders',
-    'core'
 ]
 
 REST_FRAMEWORK={
@@ -78,7 +77,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.contrib.auth.middleware.RemoteUserMiddleware',
     'corsheaders.middleware.CorsMiddleware',
-    'corsheaders.middleware.CorsPostCsrfMiddleware'
 ]
 
 AUTHENTICATION_BACKENDS = [

@@ -12,7 +12,7 @@ import User from '../models/User.js';
 import jwt from 'jsonwebtoken';
 
 // Secret key for JWT tokens (in production, use environment variable)
-const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key-change-in-production';
+const JWT_SECRET = process.env.JWT_SECRET ;
 
 // ============================================
 // EMAIL/PASSWORD SIGNUP
