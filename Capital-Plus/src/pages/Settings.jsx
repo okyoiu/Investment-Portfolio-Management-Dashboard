@@ -158,18 +158,19 @@ export default function Settings() {
               {/* Current Picture */}
               <div className="relative">
                 {previewPicture ? (
-                  <img 
-                    src={previewPicture} 
-                    alt="Profile" 
-                    className="w-32 h-32 rounded-full border-4 border-lime-400/50 object-cover shadow-xl"
-                  />
+                  <div className="profile-picture-circle w-32 h-32 border-4 border-lime-400/50 shadow-xl">
+                    <img 
+                      src={previewPicture} 
+                      alt="Profile" 
+                    />
+                  </div>
                 ) : (
-                  <div className="w-32 h-32 rounded-full bg-lime-400/20 flex items-center justify-center text-lime-400 font-bold text-4xl border-4 border-lime-400/50 shadow-xl">
+                  <div className="w-32 h-32 rounded-full bg-lime-400/20 flex items-center justify-center text-lime-400 font-bold text-4xl border-4 border-lime-400/50 shadow-xl flex-shrink-0">
                     {(name || email || 'U')[0].toUpperCase()}
                   </div>
                 )}
                 {/* Online indicator */}
-                <div className="absolute bottom-2 right-2 w-4 h-4 bg-lime-400 rounded-full border-4 border-gray-900"></div>
+                <div className="absolute bottom-2 right-2 w-4 h-4 bg-lime-400 rounded-full border-4 border-gray-900 z-10"></div>
               </div>
 
               {/* Upload Controls */}

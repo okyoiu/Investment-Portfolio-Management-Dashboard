@@ -96,30 +96,31 @@ export default function Navbar() {
               {/* Profile Picture - Always visible */}
               <div className="relative">
                 {user.picture ? (
-                  <img 
-                    src={user.picture} 
-                    alt={user.name || user.email || 'User'} 
-                    className="w-10 h-10 rounded-full border-2 border-lime-400/50 object-cover shadow-lg hover:border-lime-400 transition-all"
-                    onError={(e) => {
-                      // Fallback if image fails to load
-                      e.target.style.display = 'none';
-                      const parent = e.target.parentElement;
-                      if (parent && !parent.querySelector('.fallback-avatar')) {
-                        const fallback = document.createElement('div');
-                        fallback.className = 'fallback-avatar w-10 h-10 rounded-full bg-lime-400/20 flex items-center justify-center text-lime-400 font-semibold text-sm border-2 border-lime-400/50 shadow-lg';
-                        fallback.textContent = (user.name || user.email || 'U')[0].toUpperCase();
-                        parent.appendChild(fallback);
-                      }
-                    }}
-                  />
+                  <div className="profile-picture-circle w-10 h-10 border-2 border-lime-400/50 shadow-lg hover:border-lime-400 transition-all">
+                    <img 
+                      src={user.picture} 
+                      alt={user.name || user.email || 'User'} 
+                      onError={(e) => {
+                        // Fallback if image fails to load
+                        e.target.style.display = 'none';
+                        const parent = e.target.parentElement;
+                        if (parent && !parent.querySelector('.fallback-avatar')) {
+                          const fallback = document.createElement('div');
+                          fallback.className = 'fallback-avatar w-full h-full rounded-full bg-lime-400/20 flex items-center justify-center text-lime-400 font-semibold text-sm';
+                          fallback.textContent = (user.name || user.email || 'U')[0].toUpperCase();
+                          parent.appendChild(fallback);
+                        }
+                      }}
+                    />
+                  </div>
                 ) : (
                   // Fallback avatar if no picture
-                  <div className="w-10 h-10 rounded-full bg-lime-400/20 flex items-center justify-center text-lime-400 font-semibold text-sm border-2 border-lime-400/50 shadow-lg hover:border-lime-400 transition-all">
+                  <div className="w-10 h-10 rounded-full bg-lime-400/20 flex items-center justify-center text-lime-400 font-semibold text-sm border-2 border-lime-400/50 shadow-lg hover:border-lime-400 transition-all flex-shrink-0">
                     {(user.name || user.email || 'U')[0].toUpperCase()}
                   </div>
                 )}
                 {/* Online indicator */}
-                <div className="absolute bottom-0 right-0 w-3 h-3 bg-lime-400 rounded-full border-2 border-gray-900"></div>
+                <div className="absolute bottom-0 right-0 w-3 h-3 bg-lime-400 rounded-full border-2 border-gray-900 z-10"></div>
               </div>
               <span className="text-gray-300 text-sm hidden md:block font-medium">
                 {user.name || user.email}
