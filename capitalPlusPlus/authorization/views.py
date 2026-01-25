@@ -5,7 +5,7 @@ from django.http import JsonResponse
 from rest_framework.decorators import api_view, permission_classes
 from authlib.integrations.django_oauth2 import ResourceProtector
 from . import validator
-from models import UserOrgRole, Organization
+from models import UserOrgRole, Organization, User
 from django.db.models import F
 
 require_auth = ResourceProtector()
@@ -57,9 +57,86 @@ def delete_group(request):
         response=JsonResponse({'Method not allowed'})
         response.status_code=403
         return response
-    group=request.POST.get('groupID')
-    if (UserOrgRole.objects.filter(user=request.user, group=group).exists() and UserOrgRole.objects.get(user=request.user, group=group).role in ['ADMIN', 'PARENT']):
+    try:
+        group=request.POST.get('groupID')
+    except:
+        response=JsonResponse({'message':'Input invalid'})
+        response.status_code=404
+        return response
+    if (UserOrgRole.objects.filter(user=request.user, group=group).exists() and UserOrgRole.objects.get(user=request.user, group=group).role in ['ADMIN']):
         Organization.objects.get(group=group).delete()
+        return JsonResponse({'message': 'Success!'})
+    response=JsonResponse({'message':'Access restricted'})
+    response.status_code=404
+    return response
+
+@api_view(['POST'])
+@requires_scope('GroupAccount')
+def create_group(request):
+    if (request.method!='POST'):
+        response=JsonResponse({'Method not allowed'})
+        response.status_code=403
+        return response
+    try:
+        group=request.POST.get('name')
+    except:
+        response=JsonResponse({'message':'Input invalid'})
+        response.status_code=404
+        return response
+    gid=uuid.uuid4
+    Organization.objects.create(groupID=gid, groupName=name)
+    UserOrgRole.objects.create(role="ADMIN", user=request.user,group=gid)
+    return JsonResponse({'message': 'Group created.'})
+
+@api_view(['POST'])
+@requires_scope('GroupAccount')
+def remove_members(request):
+    if (request.method!='POST'):
+        response=JsonResponse({'Method not allowed'})
+        response.status_code=403
+        return response
+    try:
+        user_instance = User.objects.get(username=request.POST.get('username'))
+    except User.DoesNotExist:
+        # Handle the case where the user does not exist
+        response=JsonResponse({'message':'User does not exist.'})
+        response.status_code=404
+        return response
+    try:
+        group=request.POST.get('groupID')
+    except:
+        response=JsonResponse({'message':'Input invalid'})
+        response.status_code=404
+        return response
+    if (UserOrgRole.objects.get(user=request.user, group=group).exists() and UserOrgRole.objects.get(user=request.user, group=group).role in ['ADMIN']):
+        UserOrgRole.objects.get(user=user_instance).delete()
+        return JsonResponse({'message': 'Success!'})
+    response=JsonResponse({'message':'Access restricted'})
+    response.status_code=404
+    return response
+
+@api_view(['POST'])
+@requires_scope('GroupAccount')
+def add_members(request):
+    if (request.method!='POST'):
+        response=JsonResponse({'Method not allowed'})
+        response.status_code=403
+        return response
+    try:
+        user_instance = User.objects.get(username=request.POST.get('username'))
+    except User.DoesNotExist:
+        # Handle the case where the user does not exist
+        response=JsonResponse({'message':'User does not exist.'})
+        response.status_code=404
+        return response
+    try:
+        group=request.POST.get('groupID')
+    except:
+        response=JsonResponse({'message':'Input invalid'})
+        response.status_code=404
+        return response
+    if (UserOrgRole.objects.get(user=request.user, group=group).exists() and UserOrgRole.objects.get(user=request.user, group=group).role in ['ADMIN']):
+        UserOrgRole.objects.create(role='CHILD', user=user_instance, group=group)
         return JsonResponse({'message': 'Success!'})
     response=JsonResponse({'message':'Access restricted'})
     response.status_code=404
@@ -76,9 +153,14 @@ def expense(request):
         response=JsonResponse({'message':'Access restricted'})
         response.status_code=404
         return response
-    value=request.POST.get('value')
-    group=request.POST.get('groupID')
-    currBal=Organization.objects.get(groupID=group).balance
+    try:
+        value=request.POST.get('value')
+        group=request.POST.get('groupID')
+        currBal=Organization.objects.get(groupID=group).balance
+    except:
+        response=JsonResponse({'message':'Not found'})
+        response.status_code=404
+        return response
     if (value<0 or currBal<0):
         response=JsonResponse({'message':'Insufficient value'})
         response.status_code=400
@@ -98,9 +180,15 @@ def income(request):
         response=JsonResponse({'message':'Access restricted'})
         response.status_code=404
         return response
-    value=request.POST.get('value')
-    group=request.POST.get('groupID')
-    currBal=Organization.objects.get(groupID=group).balance
+    try:
+        value=request.POST.get('value')
+        group=request.POST.get('groupID')
+        currBal=Organization.objects.get(groupID=group).balance
+    except:
+        response=JsonResponse({'message':'Input invalid'})
+        response.status_code=404
+        return response
+    
     if (value<0 or currBal<0):
         response=JsonResponse({'message':'Insufficient value'})
         response.status_code=400
@@ -109,15 +197,17 @@ def income(request):
     Organization.objects.filter(groupID=group).update(balance=F("balance") + value)
     return JsonResponse({'message': 'Success!'})
 
-@api_view(['POST'])
-@requires_scope('Child')
-def create_group(request):
-    if (request.method!='POST'):
+@api_view(['GET'])
+def amount(request):
+    if (request.method!='GET'):
         response=JsonResponse({'Method not allowed'})
         response.status_code=403
         return response
-    name=request.POST.get('name')
-    gid=uuid.uuid4
-    Organization.objects.create(groupID=gid, groupName=name)
-    UserOrgRole.objects.create(role="ADMIN", user=request.user,group=gid)
-    return JsonResponse({'message': 'Group created.'})
+    try:
+        group=request.POST.get('groupID')
+        currBal=Organization.objects.get(groupID=group).balance
+    except:
+        response=JsonResponse({'message':'Input invalid'})
+        response.status_code=404
+        return response
+    return JsonResponse({'amount': f'{currBal}'})
