@@ -1,13 +1,15 @@
 @reference "./index.css";
 
-/* Custom styles for enhanced UI */
+/* ============================================
+   CUSTOM STYLES - SHORTER CLASS NAMES
+   ============================================ */
 
-/* Smooth scrolling */
+/* Smooth scrolling for the whole page */
 html {
   scroll-behavior: smooth;
 }
 
-/* Custom scrollbar */
+/* Custom scrollbar styling */
 ::-webkit-scrollbar {
   width: 8px;
 }
@@ -24,27 +26,140 @@ html {
   @apply bg-gray-500;
 }
 
-/* Input focus styles */
-input:focus {
-  @apply outline-none ring-2 ring-lime-400/50 border-lime-400;
+/* ============================================
+   PAGE LAYOUTS
+   ============================================ */
+
+/* Dark gradient background for pages (dark gray to black) */
+.page-bg {
+  @apply min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white;
 }
 
-/* Button hover effects */
-button {
-  @apply transition-all duration-200;
+/* Container that centers content and adds padding */
+.page-container {
+  @apply container mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16;
 }
 
-/* Card hover effects */
-.card-hover {
-  @apply transition-all duration-300 hover:shadow-lg hover:shadow-lime-400/10;
+/* ============================================
+   CARDS & CONTAINERS
+   ============================================ */
+
+/* Glass effect card (semi-transparent with blur) */
+.card {
+  @apply bg-gray-800/50 backdrop-blur-md border border-gray-700/50 rounded-2xl p-6 hover:border-lime-400/30 transition-all duration-300 shadow-xl;
 }
 
-/* Glass morphism effect */
-.glass {
-  @apply bg-gray-800/50 backdrop-blur-md border border-gray-700/50;
+/* Card with padding for forms */
+.card-form {
+  @apply bg-gray-800/50 backdrop-blur-md border border-gray-700/50 rounded-2xl p-8 shadow-xl;
 }
 
-/* Gradient text */
-.gradient-text {
+/* ============================================
+   NAVIGATION
+   ============================================ */
+
+/* Top navigation bar (sticky, with blur effect) */
+.nav-bar {
+  @apply flex items-center justify-between px-8 py-6 border-b border-cyan-500/30 bg-gray-900/80 backdrop-blur-sm sticky top-0 z-50;
+}
+
+/* Navigation link (clickable text) */
+.nav-link {
+  @apply text-gray-300 hover:text-lime-400 transition-colors duration-200 font-medium;
+}
+
+/* ============================================
+   BUTTONS
+   ============================================ */
+
+/* Primary button (lime green, rounded) */
+.btn-primary {
+  @apply px-6 py-2 bg-lime-400 text-gray-900 rounded-full font-semibold hover:bg-lime-300 transition-all duration-200 shadow-lg shadow-lime-400/20 hover:shadow-lime-400/30;
+}
+
+/* Large primary button (for hero sections) */
+.btn-primary-large {
+  @apply px-8 py-4 bg-lime-400 text-gray-900 rounded-full font-semibold hover:bg-lime-300 transition-all duration-200 shadow-lg shadow-lime-400/20 hover:shadow-lime-400/30 hover:scale-105 w-fit inline-block;
+}
+
+/* Secondary button (outlined, for exchange) */
+.btn-secondary {
+  @apply w-full py-3 bg-lime-400/20 text-lime-400 rounded-lg font-semibold hover:bg-lime-400/30 transition-all duration-200 border border-lime-400/30 hover:border-lime-400/50 hover:shadow-lg hover:shadow-lime-400/20;
+}
+
+/* ============================================
+   INPUT FIELDS
+   ============================================ */
+
+/* Text input field (email, password, etc.) */
+.input-field {
+  @apply w-full px-4 py-3 bg-gray-900/50 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-lime-400/50 focus:border-lime-400 transition-all;
+}
+
+/* Number input field (for currency exchange) */
+.input-number {
+  @apply w-full bg-gray-700/50 border border-gray-600 rounded-lg px-4 py-2.5 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-lime-400/50 focus:border-lime-400 transition-all;
+}
+
+/* Checkbox input */
+.input-checkbox {
+  @apply w-4 h-4 bg-gray-900 border-gray-700 rounded text-lime-400 focus:ring-lime-400;
+}
+
+/* ============================================
+   TEXT STYLES
+   ============================================ */
+
+/* Gradient text (lime to cyan) */
+.text-gradient {
   @apply bg-gradient-to-r from-lime-400 to-cyan-400 bg-clip-text text-transparent;
+}
+
+/* Large heading (for hero sections) */
+.heading-hero {
+  @apply text-4xl sm:text-5xl lg:text-6xl font-bold mb-4 leading-tight;
+}
+
+/* Page title */
+.title-page {
+  @apply text-3xl font-bold mb-2 bg-gradient-to-r from-lime-400 to-cyan-400 bg-clip-text text-transparent;
+}
+
+/* ============================================
+   UTILITY CLASSES
+   ============================================ */
+
+/* Centered content with max width */
+.content-center {
+  @apply max-w-md mx-auto;
+}
+
+/* Grid layout for dashboard (2 columns on large screens) */
+.grid-dashboard {
+  @apply grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12;
+}
+
+/* Flex column with spacing */
+.flex-col-spaced {
+  @apply space-y-8 flex flex-col justify-center;
+}
+
+/* Icon container (circular with shadow) */
+.icon-circle {
+  @apply w-8 h-8 bg-lime-400 rounded flex items-center justify-center shadow-lg shadow-lime-400/20;
+}
+
+/* Small pulsing dot indicator */
+.dot-pulse {
+  @apply w-3 h-3 bg-lime-400 rounded-full animate-pulse shadow-lg shadow-lime-400/50;
+}
+
+/* Transaction item (hover effect) */
+.transaction-item {
+  @apply flex items-center gap-3 p-3 rounded-lg hover:bg-gray-700/30 transition-all duration-200;
+}
+
+/* Avatar circle (for user initials) */
+.avatar {
+  @apply w-10 h-10 bg-lime-400/20 rounded-full flex items-center justify-center ring-2 ring-lime-400/20;
 }
