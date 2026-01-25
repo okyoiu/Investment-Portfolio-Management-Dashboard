@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default function Navbar() {
   return (
@@ -13,8 +14,8 @@ export default function Navbar() {
       
       {/* Navigation Links */}
       <div className="hidden md:flex gap-8">
-        <a href="#" className="text-gray-300 hover:text-lime-400 transition-colors duration-200 font-medium">Home</a>
-        <a href="#" className="text-gray-300 hover:text-lime-400 transition-colors duration-200 font-medium">Careers</a>
+        <Link to="/" className="text-gray-300 hover:text-lime-400 transition-colors duration-200 font-medium">Home</Link>
+        <Link to="/budg_p" className="text-gray-300 hover:text-lime-400 transition-colors duration-200 font-medium">Budget Plan</Link>
         <a href="#" className="text-gray-300 hover:text-lime-400 transition-colors duration-200 font-medium">About</a>
         <a href="#" className="text-gray-300 hover:text-lime-400 transition-colors duration-200 font-medium">Security</a>
       </div>

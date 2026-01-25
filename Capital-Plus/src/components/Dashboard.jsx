@@ -4,6 +4,7 @@ import Navbar from './Navbar';
 import TransactionCard from './TransactionCard';
 import ExchangeCard from './ExchangeCard';
 
+
 export default function Dashboard() {
   const [inrAmount, setInrAmount] = useState('5.0000');
   const [usdAmount, setUsdAmount] = useState('12.00');
