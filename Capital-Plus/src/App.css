@@ -1,0 +1,50 @@
+@reference "./index.css";
+
+/* Custom styles for enhanced UI */
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-800;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-600 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-gray-500;
+}
+
+/* Input focus styles */
+input:focus {
+  @apply outline-none ring-2 ring-lime-400/50 border-lime-400;
+}
+
+/* Button hover effects */
+button {
+  @apply transition-all duration-200;
+}
+
+/* Card hover effects */
+.card-hover {
+  @apply transition-all duration-300 hover:shadow-lg hover:shadow-lime-400/10;
+}
+
+/* Glass morphism effect */
+.glass {
+  @apply bg-gray-800/50 backdrop-blur-md border border-gray-700/50;
+}
+
+/* Gradient text */
+.gradient-text {
+  @apply bg-gradient-to-r from-lime-400 to-cyan-400 bg-clip-text text-transparent;
+}
