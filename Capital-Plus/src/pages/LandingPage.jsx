@@ -123,7 +123,7 @@ export default function LandingPage() {
             text-gradient
             animate-fade-in
           `}>
-            Capital Plus
+            FundMental
           </h1>
           
           <p className={`
