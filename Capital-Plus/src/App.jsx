@@ -13,6 +13,7 @@ import Dashboard from './components/Dashboard'
 import Login from './pages/Login'
 import SignUp from './pages/SignUp'
 import BankManager from './pages/BankManager'
+import Settings from './pages/Settings'
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/bank-manager" element={<BankManager />} />
+        <Route path="/settings" element={<Settings />} />
       </Routes>
     </Router>
   )
