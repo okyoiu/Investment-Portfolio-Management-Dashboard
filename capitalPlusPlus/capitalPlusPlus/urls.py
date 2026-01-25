@@ -19,8 +19,14 @@ from django.urls import path,include
 from . import views
 from django.views.generic import RedirectView
 
+# from django.contrib.auth.decorators import login_required
+
+# admin.autodiscover()
+# admin.site.login = login_required(admin.site.login)
+
 urlpatterns = [
     path('home/', include('authentication.urls')),
     path('home/', views.index, name="home"),
     path('', RedirectView.as_view(url='home/', permanent=True)), 
+    path('admin/', admin.site.urls),
 ]

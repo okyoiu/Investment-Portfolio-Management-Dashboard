@@ -1,10 +1,12 @@
 from django.shortcuts import render
 from functools import wraps
-import jwt
+import jwt, uuid
 from django.http import JsonResponse
 from rest_framework.decorators import api_view, permission_classes
 from authlib.integrations.django_oauth2 import ResourceProtector
 from . import validator
+from models import UserOrgRole, Organization
+from django.db.models import F
 
 require_auth = ResourceProtector()
 validator = validator.Auth0JWTBearerTokenValidator(
@@ -40,7 +42,7 @@ def requires_scope(required_scope):
                 for token_scope in token_scopes:
                     if token_scope==required_scope:
                         return f(*args, **kwargs)
-            response=JsonResponse({'message:Access restricted'})
+            response=JsonResponse({'message':'Access restricted'})
             response.status_code=403
             return response
         return decorated
@@ -48,18 +50,74 @@ def requires_scope(required_scope):
 
 # Create your views here.
 
-@api_view(['GET'])
-@permission_classes([AllowAny])
-def public(request):
-    return JsonResponse({'message': 'Hello from a public endpoint! You don\'t need to be authenticated to see this.'})
+@api_view(['POST'])
+@requires_scope('GroupAccount')
+def delete_group(request):
+    if (request.method!='POST'):
+        response=JsonResponse({'Method not allowed'})
+        response.status_code=403
+        return response
+    group=request.POST.get('groupID')
+    if (UserOrgRole.objects.filter(user=request.user, group=group).exists() and UserOrgRole.objects.get(user=request.user, group=group).role in ['ADMIN', 'PARENT']):
+        Organization.objects.get(group=group).delete()
+        return JsonResponse({'message': 'Success!'})
+    response=JsonResponse({'message':'Access restricted'})
+    response.status_code=404
+    return response
 
-@api_view(['GET'])
-def private(request):
-    return JsonResponse({'message': 'Hello from a public endpoint! You don\'t need to be authenticated to see this.'})
+@api_view(['POST'])
+@requires_scope('Child')
+def expense(request):
+    if (request.method!='POST'):
+        response=JsonResponse({'Method not allowed'})
+        response.status_code=403
+        return response
+    if not (UserOrgRole.objects.filter(user=request.user).exists()):
+        response=JsonResponse({'message':'Access restricted'})
+        response.status_code=404
+        return response
+    value=request.POST.get('value')
+    group=request.POST.get('groupID')
+    currBal=Organization.objects.get(groupID=group).balance
+    if (value<0 or currBal<0):
+        response=JsonResponse({'message':'Insufficient value'})
+        response.status_code=400
+        return response
+    
+    Organization.objects.filter(groupID=group).update(balance=F("balance") - value)
+    return JsonResponse({'message': 'Success!'})
 
-@api_view(['GET'])
-@requires_scope('read:messages')
-def scoped(request):
-    return JsonResponse({'message': 'Hello from a public endpoint! You don\'t need to be authenticated to see this.'})
+@api_view(['POST'])
+@requires_scope('Child')
+def income(request):
+    if (request.method!='POST'):
+        response=JsonResponse({'Method not allowed'})
+        response.status_code=403
+        return response
+    if not (UserOrgRole.objects.filter(user=request.user).exists()):
+        response=JsonResponse({'message':'Access restricted'})
+        response.status_code=404
+        return response
+    value=request.POST.get('value')
+    group=request.POST.get('groupID')
+    currBal=Organization.objects.get(groupID=group).balance
+    if (value<0 or currBal<0):
+        response=JsonResponse({'message':'Insufficient value'})
+        response.status_code=400
+        return response
+    
+    Organization.objects.filter(groupID=group).update(balance=F("balance") + value)
+    return JsonResponse({'message': 'Success!'})
 
-
+@api_view(['POST'])
+@requires_scope('Child')
+def create_group(request):
+    if (request.method!='POST'):
+        response=JsonResponse({'Method not allowed'})
+        response.status_code=403
+        return response
+    name=request.POST.get('name')
+    gid=uuid.uuid4
+    Organization.objects.create(groupID=gid, groupName=name)
+    UserOrgRole.objects.create(role="ADMIN", user=request.user,group=gid)
+    return JsonResponse({'message': 'Group created.'})
