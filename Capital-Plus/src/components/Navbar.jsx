@@ -65,7 +65,7 @@ export default function Navbar() {
           text-xl font-bold 
           text-gradient
         `}>
-          Capital Plus
+          FundMental
         </span>
       </Link>
       
