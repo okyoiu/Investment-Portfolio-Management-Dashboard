@@ -1,0 +1,13 @@
+📋 MANUAL SETUP REQUIRED:
+
+1. Go to https://manage.auth0.com/dashboard/
+2. Click 'Create Application' → Single Page Application
+3. Set Allowed Callback URLs: http://localhost:5173, http://localhost:5173/*
+4. Set Allowed Logout URLs: http://localhost:5173
+5. Set Allowed Web Origins: http://localhost:5173
+6. Update .env file with your Domain and Client ID
+
+To get your credentials:
+- Domain: Found in Applications > Your App > Settings (looks like: your-tenant.auth0.com)
+- Client ID: Found in Applications > Your App > Settings
+- Audience: Create an API in Auth0 Dashboard > APIs, then use the Identifier (e.g., https://api.capital-plus.com)
