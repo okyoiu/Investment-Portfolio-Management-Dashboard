@@ -39,3 +39,13 @@ Make sure you have the following installed on your system:
 2. Set up virtual env
 3. Enter venv using
 .venv\Scripts\activate.bat for windows
+
+### Running Code
+Using `Node.js`. run the following:
+
+```zsh
+npm install
+npm run dev
+```
+
+This should open up the file on a Vite server which is then displayed onto a local server on your webbrowser.

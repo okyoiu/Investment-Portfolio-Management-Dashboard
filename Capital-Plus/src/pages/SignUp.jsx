@@ -1,19 +1,41 @@
 // ============================================
 // SIGN UP PAGE COMPONENT
 // ============================================
-// Simple signup page - redirects to dashboard
+// Sign up page with Auth0 authentication
+// Redirects to backend Auth0 login endpoint with signup hint
 // ============================================
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
+
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api';
 
 export default function SignUp() {
   const navigate = useNavigate();
 
+  // Check if user is already authenticated
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const response = await fetch(`${API_URL}/auth/user`, {
+          credentials: 'include'
+        });
+        const data = await response.json();
+        if (data.authenticated) {
+          navigate('/dashboard');
+        }
+      } catch (error) {
+        console.error('Auth check failed:', error);
+      }
+    };
+    checkAuth();
+  }, [navigate]);
+
   const handleSignUp = () => {
-    // Simple signup - just redirect to dashboard
-    navigate('/dashboard');
+    // Redirect to backend Auth0 login endpoint with signup screen hint
+    // Note: The backend will need to support screen_hint parameter
+    window.location.href = `${API_URL}/auth/login?screen_hint=signup`;
   };
 
   return (
@@ -34,7 +56,7 @@ export default function SignUp() {
                 mb-4
               `}
             >
-              Get Started
+              Sign Up with Auth0
             </button>
 
             <div className="mt-6 text-center">
