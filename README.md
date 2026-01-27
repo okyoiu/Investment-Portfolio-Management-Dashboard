@@ -14,7 +14,7 @@ Welcome to the **TAMUHack2026** project! This repository contains the source cod
 ---
 
 ## About the Project
-TAMUHack2026 is a web application built to [briefly describe the purpose of your project, e.g., "help users manage their tasks efficiently" or "provide a platform for collaborative learning"]. This project was created during the TAMUHack 2026 hackathon.
+TAMUHack2026 is a web application built to better learn about Front-end and Backend development in this project. This project was created during the TAMUHack 2026 hackathon.
 
 ### Built With
 - [React](https://reactjs.org/)
