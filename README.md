@@ -8,23 +8,24 @@ The people who helped build this project were the following:
 - Brianna Tao
 
 ## Table of Contents
-- [TAMUHack2026](#tamuhack2026)
-  - [Table of Contents](#table-of-contents)
-  - [About the Project](#about-the-project)
-    - [Built With](#built-with)
-  - [Getting Started](#getting-started)
-    - [Prerequisites](#prerequisites)
-    - [Installation](#installation)
-
+* [About the Project](#about-the-project)
+  * [Built With](#built-with)
+* [Getting Started](#getting-started)
+  * [Prerequisites](#prerequisites)
+  * [Installation](#installation)
+* [Usage](#running-code)
 ---
 
 ## About the Project
 The investment portfolio management dashboard is a web application built to better learn about Front-end and Backend development in this project. This project was created during the TAMUHack 2026 hackathon.
 
+![DashBoard Setup](FundMental_page.jpeg)
+
 ### Built With
-- [React](https://reactjs.org/)
-- [Vite](https://vitejs.dev/)
-- [Tailwind CSS](https://tailwindcss.com/)
+* [![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)](https://reactjs.org/)
+* [![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
+* [![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+* [![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)](https://www.python.org/)
 
 ---
 
