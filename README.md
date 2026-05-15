@@ -1,6 +1,11 @@
-# TAMUHack2026
+# Investment Porfolio Management Dashboard
 
-Welcome to the **TAMUHack2026** project! This repository contains the source code for our hackathon project, built using **React**, **Vite**, **Tailwind CSS**, and **Django**.
+Welcome to the project! This repository was built under a time-constraint during the **TAMUHack 2026** competition and contains the source code for our hackathon project, which was built using **React**, **Vite**, **Tailwind CSS**, and **Django**.
+
+The people who helped build this project were the following:
+- Cesar Sanchez
+- Daniel Wang
+- Brianna Tao
 
 ## Table of Contents
 - [TAMUHack2026](#tamuhack2026)
@@ -14,7 +19,7 @@ Welcome to the **TAMUHack2026** project! This repository contains the source cod
 ---
 
 ## About the Project
-TAMUHack2026 is a web application built to better learn about Front-end and Backend development in this project. This project was created during the TAMUHack 2026 hackathon.
+The investment portfolio management dashboard is a web application built to better learn about Front-end and Backend development in this project. This project was created during the TAMUHack 2026 hackathon.
 
 ### Built With
 - [React](https://reactjs.org/)
