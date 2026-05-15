@@ -3,17 +3,18 @@
 Welcome to the project! This repository was built under a time-constraint during the **TAMUHack 2026** competition and contains the source code for our hackathon project, which was built using **React**, **Vite**, **Tailwind CSS**, and **Django**.
 
 The people who helped build this project were the following:
-- Cesar Sanchez
-- Daniel Wang
-- Brianna Tao
+- Cesar Sanchez (Full-Stack Developer)
+- Daniel Wang (Back-End Developer)
+- Brianna Tao (Digital Lead Design)
 
 ## Table of Contents
-* [About the Project](#about-the-project)
-  * [Built With](#built-with)
-* [Getting Started](#getting-started)
-  * [Prerequisites](#prerequisites)
-  * [Installation](#installation)
-* [Usage](#running-code)
+
+| 📖 Main Section | 📌 Sub-Sections |
+| :--- | :--- |
+| **[About the Project](#about-the-project)** | 🔹 [Built With](#built-with) |
+| **[Getting Started](#getting-started)** | 🔹 [Prerequisites](#prerequisites)<br>🔹 [Installation](#installation) |
+| **[Usage](#running-code)** | |
+
 ---
 
 ## About the Project
